@@ -27,15 +27,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        ChildModelBuilder childModelBuilder=new ChildModelBuilder();
+        ChildModelBuilder childModelBuilder = new ChildModelBuilder();
 
         childModelBuilder.setName("Root").setImageRes(R.mipmap.ic_launcher_round);
 
-        TreeNode<ChildModel> rootNode=new TreeNode<>(childModelBuilder.createChildModel());
+        TreeNode<ChildModel> rootNode = new TreeNode<>(childModelBuilder.createChildModel());
         fillTree(childModelBuilder, rootNode);
 
 
-        Log.wtf("Max Level",rootNode.getMaxLevel()+"");
+        Log.wtf("Max Level", rootNode.getMaxLevel() + "");
 
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
@@ -46,65 +46,55 @@ public class MainActivity extends AppCompatActivity {
 
         mLayoutManager = new LinearLayoutManager(this);
         mParentRecyclerView.setLayoutManager(mLayoutManager);
-        mParentRecyclerView.setAdapter(new ParentRecyclerViewAdapter(rootNode));
+        mParentRecyclerView.setAdapter(new ParentRecyclerViewAdapter(rootNode, mParentRecyclerView));
 
     }
 
     private void fillTree(ChildModelBuilder childModelBuilder, TreeNode<ChildModel> rootNode) {
-        ChildModel leaf1= childModelBuilder.setName("Leaf1").createChildModel();
+        ChildModel a1 = childModelBuilder.setName("A1").createChildModel();
 
-        TreeNode leaf1Node=rootNode.addChild(leaf1);
-        ChildModel leaf1_1= childModelBuilder.setName("Leaf1_1").createChildModel();
-        leaf1Node.addChild(leaf1_1);
-        ChildModel leaf1_2= childModelBuilder.setName("Leaf1_2").createChildModel();
-        leaf1Node.addChild(leaf1_2);
+        TreeNode l1 = rootNode.addChild(a1);
+        l1.setCurrentActiveNode(l1);
+
+        ChildModel b1 = childModelBuilder.setName("b1").createChildModel();
+        l1.addChild(b1);
+
+        ChildModel b2 = childModelBuilder.setName("b2").createChildModel();
+        TreeNode l2 = l1.addChild(b2);
+
+        ChildModel b3 = childModelBuilder.setName("b3").createChildModel();
+        l1.addChild(b3);
+
+        ChildModel c1 = childModelBuilder.setName("C1").createChildModel();
+        l2.addChild(c1);
+
+        ChildModel c2 = childModelBuilder.setName("C2").createChildModel();
+        TreeNode l3 = l2.addChild(c2);
+
+        ChildModel d1 = childModelBuilder.setName("D2").createChildModel();
+        l3.addChild(d1);
+
+        ChildModel d2 = childModelBuilder.setName("D2").createChildModel();
+        TreeNode l4 = l3.addChild(d2);
+
+        ChildModel d3 = childModelBuilder.setName("D3").createChildModel();
+        l3.addChild(d3);
+
+        ChildModel e1 = childModelBuilder.setName("E1").createChildModel();
+        TreeNode l5 = l4.addChild(e1);
+        ChildModel e2 = childModelBuilder.setName("E2").createChildModel();
+        l4.addChild(e2);
+        ChildModel e3 = childModelBuilder.setName("E3").createChildModel();
+        l4.addChild(e3);
+
+        ChildModel F1 = childModelBuilder.setName("F1").createChildModel();
+        l5.addChild(F1);
+        ChildModel f2 = childModelBuilder.setName("F2").createChildModel();
+        l5.addChild(f2);
+        ChildModel f3 = childModelBuilder.setName("F3").createChildModel();
+        l5.addChild(f3);
 
 
-        ChildModel leaf2= childModelBuilder.setName("Leaf2").createChildModel();
-        TreeNode leaf2Node=rootNode.addChild(leaf2);
-
-        ChildModel leaf2_1= childModelBuilder.setName("Leaf2_1").createChildModel();
-        leaf2Node.addChild(leaf2_1);
-        ChildModel leaf2_2= childModelBuilder.setName("Leaf2_2").createChildModel();
-        leaf2Node.addChild(leaf2_2);
-
-
-        ChildModel leaf3= childModelBuilder.setName("Leaf3").createChildModel();
-        TreeNode leaf3Node=rootNode.addChild(leaf3);
-
-        ChildModel leaf3_1= childModelBuilder.setName("Leaf3_1").createChildModel();
-        leaf3Node.addChild(leaf3_1);
-        ChildModel leaf3_2= childModelBuilder.setName("Leaf3_2").createChildModel();
-        leaf3Node.addChild(leaf3_2);
-
-
-        ChildModel leaf4= childModelBuilder.setName("Leaf4").createChildModel();
-        TreeNode leaf4Node=rootNode.addChild(leaf4);
-
-
-        ChildModel leaf4_1= childModelBuilder.setName("Leaf4_1").createChildModel();
-        leaf4Node.addChild(leaf4_1);
-        ChildModel leaf4_2= childModelBuilder.setName("Leaf4_2").createChildModel();
-        TreeNode leaf4_2Node=leaf4Node.addChild(leaf4_2);
-
-        ChildModel leaf4_2_1= childModelBuilder.setName("Leaf4_2_1").createChildModel();
-
-        TreeNode leaf4_2_1Node= leaf4_2Node.addChild(leaf4_2_1);
-        ChildModel leaf4_2_1_1= childModelBuilder.setName("Leaf4_2_1_1").createChildModel();
-        TreeNode leaf4_2_1_1Node=leaf4_2_1Node.addChild(leaf4_2_1_1);
-
-        ChildModel leaf4_2_1_1_1= childModelBuilder.setName("Leaf4_2_1_1_1").createChildModel();
-        TreeNode leaf4_2_1_1_1Node=leaf4_2_1_1Node.addChild(leaf4_2_1_1_1);
-        ChildModel leaf4_2_1_1_1_1= childModelBuilder.setName("leaf4_2_1_1_1_1").createChildModel();
-        leaf4_2_1_1_1Node.addChild(leaf4_2_1_1_1_1);
-
-        for(int i=0;i<90;i++){
-            ChildModel rand= childModelBuilder.setName(new UUID(2,1).toString()).createChildModel();
-            ChildModel rand2= childModelBuilder.setName(new UUID(2,1).toString()).createChildModel();
-            leaf4_2_1_1_1Node.addChild(rand);
-            leaf4_2_1_1_1Node=leaf4_2_1_1_1Node.addChild(rand2);
-
-        }
     }
 
 
